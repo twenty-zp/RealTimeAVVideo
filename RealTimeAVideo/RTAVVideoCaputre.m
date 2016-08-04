@@ -60,8 +60,8 @@
             [device lockForConfiguration:&error];
             if (nil == error) {
 #if defined (__IPHONE_7_0)
-                device.activeVideoMaxFrameDuration = CMTimeMake(1, (int32_t)_videoConfiguration.videoMaxFrameRate);
-                device.activeVideoMinFrameDuration = CMTimeMake(1, (int32_t)_videoConfiguration.videoMinFrameRate);
+                device.activeVideoMaxFrameDuration = CMTimeMake(1, (int32_t)_videoConfiguration.videoFrameRate);
+                device.activeVideoMinFrameDuration = CMTimeMake(1, (int32_t)_videoConfiguration.videoFrameRate);
 #endif
             }
             [device unlockForConfiguration];

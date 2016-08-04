@@ -14,6 +14,7 @@
 		F41A480D1D5080D60034EDD3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F41A480C1D5080D60034EDD3 /* Assets.xcassets */; };
 		F41A48101D5080D60034EDD3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F41A480E1D5080D60034EDD3 /* LaunchScreen.storyboard */; };
 		F41A48181D5081390034EDD3 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F41A48171D5081390034EDD3 /* AVFoundation.framework */; };
+		F429F3A51D5334EC00781DF6 /* RTAVVideoFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = F429F3A41D5334EC00781DF6 /* RTAVVideoFrame.m */; };
 		F42E6E8A1D51BAF700E53A5D /* RTAVSession.m in Sources */ = {isa = PBXBuildFile; fileRef = F42E6E891D51BAF700E53A5D /* RTAVSession.m */; };
 		F42E6E8D1D51BD3900E53A5D /* RTAVVideoCaputre.m in Sources */ = {isa = PBXBuildFile; fileRef = F42E6E8C1D51BD3900E53A5D /* RTAVVideoCaputre.m */; };
 		F42E6E901D51C18100E53A5D /* RTAVVideoEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = F42E6E8F1D51C18100E53A5D /* RTAVVideoEncoder.m */; };
@@ -32,6 +33,8 @@
 		F41A480F1D5080D60034EDD3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F41A48111D5080D60034EDD3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F41A48171D5081390034EDD3 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		F429F3A31D5334EC00781DF6 /* RTAVVideoFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTAVVideoFrame.h; sourceTree = "<group>"; };
+		F429F3A41D5334EC00781DF6 /* RTAVVideoFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTAVVideoFrame.m; sourceTree = "<group>"; };
 		F42E6E881D51BAF700E53A5D /* RTAVSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTAVSession.h; sourceTree = "<group>"; };
 		F42E6E891D51BAF700E53A5D /* RTAVSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTAVSession.m; sourceTree = "<group>"; };
 		F42E6E8B1D51BD3900E53A5D /* RTAVVideoCaputre.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTAVVideoCaputre.h; sourceTree = "<group>"; };
@@ -77,6 +80,8 @@
 				F41A48041D5080D60034EDD3 /* AppDelegate.m */,
 				F41A48061D5080D60034EDD3 /* ViewController.h */,
 				F41A48071D5080D60034EDD3 /* ViewController.m */,
+				F429F3A31D5334EC00781DF6 /* RTAVVideoFrame.h */,
+				F429F3A41D5334EC00781DF6 /* RTAVVideoFrame.m */,
 				F42E6E881D51BAF700E53A5D /* RTAVSession.h */,
 				F42E6E891D51BAF700E53A5D /* RTAVSession.m */,
 				F42E6E8E1D51C18100E53A5D /* RTAVVideoEncoder.h */,
@@ -183,6 +188,7 @@
 			files = (
 				F41A48081D5080D60034EDD3 /* ViewController.m in Sources */,
 				F42E6E901D51C18100E53A5D /* RTAVVideoEncoder.m in Sources */,
+				F429F3A51D5334EC00781DF6 /* RTAVVideoFrame.m in Sources */,
 				F42E6E8A1D51BAF700E53A5D /* RTAVSession.m in Sources */,
 				F42E6E8D1D51BD3900E53A5D /* RTAVVideoCaputre.m in Sources */,
 				F42E6E931D51C41400E53A5D /* RTAVVideoConfiguration.m in Sources */,

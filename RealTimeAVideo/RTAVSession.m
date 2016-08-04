@@ -28,7 +28,7 @@
 #pragma mark - delegate
 - (void)captureOutput:(RTAVVideoCaputre *)capture pixelBuffer:(CVImageBufferRef)pixelBuffer
 {
-    
+    [self.videoEncoder encoderVideoData:pixelBuffer timeStamp:0];
 }
 #pragma mark - setter & getter
 - (void)setRunning:(BOOL)running
