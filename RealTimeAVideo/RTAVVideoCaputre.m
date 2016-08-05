@@ -116,14 +116,24 @@
         //设置帧率
         if ([device respondsToSelector:@selector(setActiveVideoMaxFrameDuration:)] && [device respondsToSelector:@selector(setActiveVideoMinFrameDuration:)]) {
             NSError * error ;
-            [device lockForConfiguration:&error];
             if (nil == error) {
 #if defined (__IPHONE_7_0)
-                device.activeVideoMaxFrameDuration = CMTimeMake(1, (int32_t)_videoConfiguration.videoFrameRate);
-                device.activeVideoMinFrameDuration = CMTimeMake(1, (int32_t)_videoConfiguration.videoFrameRate);
+             CMTime videoFrameRate =  CMTimeMake(1, (int32_t)_videoConfiguration.videoFrameRate);
+                NSArray *supportedFrameRateRanges = [device.activeFormat videoSupportedFrameRateRanges];
+                BOOL frameRateSupported = NO;
+                for (AVFrameRateRange *range in supportedFrameRateRanges) {
+                    if (CMTIME_COMPARE_INLINE(videoFrameRate, >=, range.minFrameDuration) &&
+                        CMTIME_COMPARE_INLINE(videoFrameRate, <=, range.maxFrameDuration)) {
+                        frameRateSupported = YES;
+                    }
+                }
+                if (frameRateSupported && [device lockForConfiguration:&error]) {
+                    device.activeVideoMaxFrameDuration = videoFrameRate;
+                    device.activeVideoMinFrameDuration = videoFrameRate;
+                    [device unlockForConfiguration];
+                }
 #endif
             }
-            [device unlockForConfiguration];
         }else
         {
             for (AVCaptureConnection * connection in videoOutput.connections) {
