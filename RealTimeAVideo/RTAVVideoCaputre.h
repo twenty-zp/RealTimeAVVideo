@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 @import AVFoundation;
 
 @class RTAVVideoCaputre,RTAVVideoConfiguration;
@@ -17,9 +18,11 @@
 @end
 
 @interface RTAVVideoCaputre : NSObject
+@property (nonatomic,assign)BOOL runing;
+@property (nonatomic,strong)UIView * preView;
+@property (nonatomic,weak,nullable)id <RTAVVideoCaputreDelegate> delegate;
+
 
 - (nullable instancetype)initWithVideoConfiguration:(nullable RTAVVideoConfiguration *)configuration;
-@property (nonatomic,assign)BOOL runing;
 
-@property (nonatomic,weak,nullable)id <RTAVVideoCaputreDelegate> delegate;
 @end

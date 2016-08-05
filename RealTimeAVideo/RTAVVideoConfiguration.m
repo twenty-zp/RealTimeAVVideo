@@ -26,6 +26,7 @@
     RTAVVideoConfiguration * configuration =  [RTAVVideoConfiguration defaultConfigurationForQuality:quality landscape:NO];
     return configuration;
 }
+
 + (instancetype)defaultConfigurationForQuality:(RTVideoQuality)quality landscape:(BOOL)landscape
 {
     RTAVVideoConfiguration * configuration =  [RTAVVideoConfiguration new];
@@ -36,7 +37,7 @@
         case kRTVideoQuality_Common_Low:
         {
             sessionPreset = kRTVideoSessionPreset640x480;
-            videoBitRate =  800 * 1000;
+            videoBitRate =  500 * 1000;
             videoMaxBitRate = 800* 1000;
             videoMinBitRate = 500*1000;
             videoFrameRate = 15;
@@ -72,9 +73,9 @@
         case kRTVideoQuality_Standard_Low:
         {
             sessionPreset = kRTVideoSessionPreset960x540;
-            videoBitRate =  1000 * 1000;
-            videoMaxBitRate = 1000* 1000;
-            videoMinBitRate = 1000*1000;
+            videoBitRate =  800 * 1000;
+            videoMaxBitRate = 800* 1000;
+            videoMinBitRate = 800*1000;
             videoFrameRate = 15;
             videoMaxFrameRate = 30;
             videoMinFrameRate = 15;
@@ -85,21 +86,21 @@
         case kRTVideoQuality_Standard_Medium:
         {
             sessionPreset = kRTVideoSessionPreset960x540;
-            videoBitRate =  1000 * 1000;
-            videoMaxBitRate = 1000* 1000;
-            videoMinBitRate = 1000*1000;
-            videoFrameRate = 25;
+            videoBitRate =  800 * 1000;
+            videoMaxBitRate = 800* 1000;
+            videoMinBitRate = 800*1000;
+            videoFrameRate = 24;
             videoMaxFrameRate = 30;
-            videoMinFrameRate = 25;
+            videoMinFrameRate = 24;
             videoSize = CGSizeMake(540, 960);
         }
             break;
         case kRTVideoQuality_Standard_Hight:
         {
             sessionPreset = kRTVideoSessionPreset960x540;
-            videoBitRate =  1000 * 1000;
-            videoMaxBitRate = 1000* 1000;
-            videoMinBitRate = 1000*1000;
+            videoBitRate =  800 * 1000;
+            videoMaxBitRate = 800* 1000;
+            videoMinBitRate = 800*1000;
             videoFrameRate = 30;
             videoMaxFrameRate = 30;
             videoMinFrameRate = 30;
@@ -109,33 +110,33 @@
         case kRTVideoQuality_HD_Low:
         {
             sessionPreset = kRTVideoSessionPreset1280x720;
-            videoBitRate =  2000 * 1000;
-            videoMaxBitRate = 3000 * 1000;
-            videoMinBitRate = 2000 *1000;
-            videoFrameRate = 25;
+            videoBitRate =  1000 * 1000;
+            videoMaxBitRate = 1000 * 1000;
+            videoMinBitRate = 1000 *1000;
+            videoFrameRate = 15;
             videoMaxFrameRate = 30;
-            videoMinFrameRate = 25;
+            videoMinFrameRate = 15;
             videoSize = CGSizeMake(720, 1280);
         }
             break;
         case kRTVideoQuality_HD_Medium:
         {
             sessionPreset = kRTVideoSessionPreset1280x720;
-            videoBitRate =  2000 * 1000;
-            videoMaxBitRate = 3000 * 1000;
-            videoMinBitRate = 2000 * 1000;
-            videoFrameRate = 30;
+            videoBitRate =  1200 * 1000;
+            videoMaxBitRate = 1200 * 1000;
+            videoMinBitRate = 1200 * 1000;
+            videoFrameRate = 24;
             videoMaxFrameRate = 30;
-            videoMinFrameRate = 35;
+            videoMinFrameRate = 24;
             videoSize = CGSizeMake(720, 1280);
         }
             break;
         case kRTVideoQuality_HD_Hight:
         {
             sessionPreset = kRTVideoSessionPreset1280x720;
-            videoBitRate =  3000 * 1000;
-            videoMaxBitRate = 3000* 1000;
-            videoMinBitRate = 3000*1000;
+            videoBitRate =  1200 * 1000;
+            videoMaxBitRate = 1200* 1000;
+            videoMinBitRate = 1200*1000;
             videoFrameRate = 30;
             videoMaxFrameRate = 30;
             videoMinFrameRate = 30;
@@ -145,33 +146,33 @@
         case kRTVideoQuality_FHD_Low:
         {
             sessionPreset = kRTVideoSessionPreset1920x1080;
-            videoBitRate =  3500 * 1000;
-            videoMaxBitRate = 5000* 1000;
-            videoMinBitRate = 3500*1000;
-            videoFrameRate = 30;
+            videoBitRate =  1500 * 1000;
+            videoMaxBitRate = 1500* 1000;
+            videoMinBitRate = 1500*1000;
+            videoFrameRate = 15;
             videoMaxFrameRate = 30;
-            videoMinFrameRate = 30;
+            videoMinFrameRate = 15;
             videoSize = CGSizeMake(1080, 1920);
         }
             break;
         case kRTVideoQuality_FHD_Medium:
         {
             sessionPreset = kRTVideoSessionPreset1920x1080;
-            videoBitRate =  4000 * 1000;
-            videoMaxBitRate = 5000* 1000;
-            videoMinBitRate = 4000*1000;
-            videoFrameRate = 30;
+            videoBitRate =  1500 * 1000;
+            videoMaxBitRate = 1500* 1000;
+            videoMinBitRate = 1500*1000;
+            videoFrameRate = 24;
             videoMaxFrameRate = 30;
-            videoMinFrameRate = 30;
+            videoMinFrameRate = 24;
             videoSize = CGSizeMake(1080, 1920);
         }
             break;
         case kRTVideoQuality_FHD_Hight:
         {
             sessionPreset = kRTVideoSessionPreset1920x1080;
-            videoBitRate =  5000 * 1000;
-            videoMaxBitRate = 5000* 1000;
-            videoMinBitRate = 5000*1000;
+            videoBitRate =  1500 * 1000;
+            videoMaxBitRate = 1500* 1000;
+            videoMinBitRate = 1500*1000;
             videoFrameRate = 30;
             videoMaxFrameRate = 30;
             videoMinFrameRate = 30;
@@ -187,7 +188,9 @@
     configuration.videoFrameRate = videoFrameRate;
     configuration.videoMaxFrameRate = videoMaxFrameRate;
     configuration.videoMinFrameRate = videoMinFrameRate;
+    configuration.videoMaxKeyframeInterval = videoFrameRate * 2;
     configuration.videoSize = videoSize;
+    configuration.landscape = NO;
     return configuration;
 }
 #pragma mark - Method

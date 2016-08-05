@@ -21,7 +21,6 @@
 {
     if (self= [super init]) {
         _configuration = configuration;
-        
     }
     return  self;
 }
@@ -45,6 +44,11 @@
         _videoCapture = videoCapture;
     }
     return _videoCapture;
+}
+- (void)setPreView:(UIView *)preView
+{
+    _preView = preView;
+    self.videoCapture.preView = preView;
 }
 -(RTAVVideoEncoder *)videoEncoder
 {

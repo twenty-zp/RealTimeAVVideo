@@ -7,11 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import <UIKit/UIKit.h>
 @class RTAVVideoConfiguration;
 @interface RTAVSession : NSObject
 @property (nonatomic,assign)BOOL running;
-- (instancetype)initWithRTAVVideoConfiguration:(RTAVVideoConfiguration *)configuration;
+@property (nonatomic,strong)UIView * preView;
 
+- (instancetype)initWithRTAVVideoConfiguration:(RTAVVideoConfiguration *)configuration;
 
 @end

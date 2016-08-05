@@ -21,36 +21,42 @@ typedef NS_ENUM(NSUInteger,RTVideoQuality) {
     /**
      * 普通分辨率
      */
-    // 码率:800Kbps  帧数:15
+    // 码率:500Kbps  帧数:15
     kRTVideoQuality_Common_Low = 0,
     // 码率:800Kbps  帧数:24
     kRTVideoQuality_Common_Medium,
     // 码率:800Kbps  帧数:30
     kRTVideoQuality_Common_High,
+    
+    
     /**
      *  标准分辨率
      */
-     // 码率:1000Kbps  帧数:15
+     // 码率:800Kbps  帧数:15
     kRTVideoQuality_Standard_Low,
-      // 码率:1000Kbps  帧数:25
+      // 码率:800Kbps  帧数:24
     kRTVideoQuality_Standard_Medium,
-      // 码率:1000Kbps  帧数:30
+      // 码率:800Kbps  帧数:30
     kRTVideoQuality_Standard_Hight,
+    
+    
     /**
      *  高清分辨率
      */
-    // 码率:2000Kbps  帧数:25
+    // 码率:1000Kbps  帧数:15
     kRTVideoQuality_HD_Low,
-    // 码率:2000Kbps  帧数:30
+    // 码率:1200Kbps  帧数:24
     kRTVideoQuality_HD_Medium,
-    // 码率:3000Kbps  帧数:30
+    // 码率:1200Kbps  帧数:30
     kRTVideoQuality_HD_Hight,
+    
+    
     //全高清分辨率
-    // 码率:3500Kbps  帧数:30
+    // 码率:1500Kbps  帧数:15
     kRTVideoQuality_FHD_Low,
-    // 码率:4000Kbps  帧数:30
+    // 码率:1500Kbps  帧数:24
     kRTVideoQuality_FHD_Medium,
-    // 码率:5000Kbps  帧数:30
+    // 码率:1500Kbps  帧数:30
     kRTVideoQuality_FHD_Hight,
     
     kRTVideoQuality_Default = kRTVideoQuality_Standard_Medium
@@ -72,6 +78,7 @@ typedef NS_ENUM(NSUInteger,RTVideoQuality) {
 @property (nonatomic,assign)NSUInteger videoMaxBitRate;
 //最小码流(bps)
 @property (nonatomic,assign)NSUInteger videoMinBitRate;
+@property (nonatomic,assign)NSUInteger videoMaxKeyframeInterval;
 //帧率(帧速度、fps）
 @property (nonatomic,assign)NSUInteger videoFrameRate;
 //最大帧率
@@ -84,4 +91,6 @@ typedef NS_ENUM(NSUInteger,RTVideoQuality) {
 
 
 @property (nonatomic,assign,readonly)NSString *avsessionPreset;
+
+@property (nonatomic,assign)BOOL landscape;
 @end

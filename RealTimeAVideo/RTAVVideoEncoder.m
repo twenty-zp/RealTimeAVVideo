@@ -16,7 +16,8 @@
     
     NSData * sps;
     NSData * pps;
-    
+    FILE *fp;
+    BOOL enabledWriteVideoFile;
 }
 @property (nonatomic,strong)RTAVVideoConfiguration *configuration;
 @end
@@ -26,6 +27,10 @@
     if (self = [super init]) {
         _configuration = configuration;
         [self initCompressSession];
+#ifdef DEBUG
+        enabledWriteVideoFile = YES;
+        [self initForFilePath];
+#endif
     }
     return self;
 }
@@ -40,6 +45,41 @@
     }
     
     VTCompressionSessionCreate(NULL, _configuration.videoSize.width, _configuration.videoSize.height, kCMVideoCodecType_H264, NULL, NULL, NULL, outputCallBack, (__bridge void *)self, &compressSession);
+//    _currentVideoBitRate = _configuration.videoBitRate;
+    VTSessionSetProperty(compressSession, kVTCompressionPropertyKey_MaxKeyFrameInterval,(__bridge CFTypeRef)@(_configuration.videoMaxBitRate));
+    VTSessionSetProperty(compressSession, kVTCompressionPropertyKey_MaxKeyFrameIntervalDuration,(__bridge CFTypeRef)@(_configuration.videoMaxKeyframeInterval));
+    VTSessionSetProperty(compressSession, kVTCompressionPropertyKey_ExpectedFrameRate, (__bridge CFTypeRef)@(_configuration.videoFrameRate));
+    VTSessionSetProperty(compressSession, kVTCompressionPropertyKey_AverageBitRate, (__bridge CFTypeRef)@(_configuration.videoBitRate));
+    NSArray *limit = @[@(_configuration.videoBitRate * 1.5/8),@(1)];
+    VTSessionSetProperty(compressSession, kVTCompressionPropertyKey_DataRateLimits, (__bridge CFArrayRef)limit);
+    VTSessionSetProperty(compressSession, kVTCompressionPropertyKey_RealTime, kCFBooleanFalse);
+    VTSessionSetProperty(compressSession, kVTCompressionPropertyKey_ProfileLevel, kVTProfileLevel_H264_Main_AutoLevel);
+    VTSessionSetProperty(compressSession, kVTCompressionPropertyKey_AllowFrameReordering, kCFBooleanFalse);
+    VTSessionSetProperty(compressSession, kVTCompressionPropertyKey_H264EntropyMode, kVTH264EntropyMode_CABAC);
+    VTCompressionSessionPrepareToEncodeFrames(compressSession);
+}
+
+- (void)initForFilePath
+{
+    char *path = [self GetFilePathByfileName:"IOSCamDemo.h264"];
+    NSLog(@"%s",path);
+    self->fp = fopen(path,"wb");
+}
+- (char*)GetFilePathByfileName:(char*)filename
+{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask,YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *strName = [NSString stringWithFormat:@"%s",filename];
+    
+    NSString *writablePath = [documentsDirectory stringByAppendingPathComponent:strName];
+    
+    NSUInteger len = [writablePath length];
+    
+    char *filepath = (char*)malloc(sizeof(char) * (len + 1));
+    
+    [writablePath getCString:filepath maxLength:len + 1 encoding:[NSString defaultCStringEncoding]];
+    
+    return filepath;
 }
 - (void)encoderVideoData:(CVPixelBufferRef)pixelBuffer timeStamp:(int64_t)timestamp
 {
@@ -54,6 +94,7 @@
     
     VTCompressionSessionEncodeFrame(compressSession, pixelBuffer, presentationTimeStamp,duration, (CFDictionaryRef)dic, NULL, &flags);
 }
+
 void  outputCallBack(void * CM_NULLABLE outputCallbackRefCon,void * CM_NULLABLE sourceFrameRefCon,OSStatus status,VTEncodeInfoFlags infoFlags,CM_NULLABLE CMSampleBufferRef sampleBuffer )
 {
     //不存在则代表压缩不成功或帧丢失
@@ -86,6 +127,16 @@ void  outputCallBack(void * CM_NULLABLE outputCallbackRefCon,void * CM_NULLABLE 
             if (statusCode == noErr) {
                 encoder->sps = [NSData dataWithBytes:sparameterSet length:sparameterSetSize];
                 encoder->pps = [NSData dataWithBytes:pparameterSet length:pparameterSetSize];
+                
+                if(encoder->enabledWriteVideoFile){
+                    NSMutableData *data = [[NSMutableData alloc] init];
+                    uint8_t header[] = {0x00,0x00,0x00,0x01};
+                    [data appendBytes:header length:4];
+                    [data appendData:encoder->sps];
+                    [data appendBytes:header length:4];
+                    [data appendData:encoder->pps];
+                    fwrite(data.bytes, 1,data.length,encoder->fp);
+                }
             }
         }
     }
@@ -94,7 +145,7 @@ void  outputCallBack(void * CM_NULLABLE outputCallbackRefCon,void * CM_NULLABLE 
     char *dataPointer;
     //接收到的数据展示
     OSStatus blockBufferStatus = CMBlockBufferGetDataPointer(blockBuffer, 0, &lengthAtOffset, &totalLength, &dataPointer);
-    if (blockBufferStatus != kCMBlockBufferNoErr)
+    if (blockBufferStatus == kCMBlockBufferNoErr)
     {
         size_t bufferOffset = 0;
         static const int AVCCHeaderLength = 4;
@@ -113,9 +164,27 @@ void  outputCallBack(void * CM_NULLABLE outputCallbackRefCon,void * CM_NULLABLE 
             frame.sps = encoder -> sps;
             frame.pps = encoder -> pps;
             frame.data = [NSData dataWithBytes:(dataPointer+bufferOffset+AVCCHeaderLength) length:NALUnitLength];
-            
+            if(encoder->enabledWriteVideoFile){
+                NSMutableData *data = [[NSMutableData alloc] init];
+                if(keyframe){
+                    uint8_t header[] = {0x00,0x00,0x00,0x01};
+                    [data appendBytes:header length:4];
+                }else{
+                    uint8_t header[] = {0x00,0x00,0x01};
+                    [data appendBytes:header length:3];
+                }
+                [data appendData:frame.data];
+                
+                fwrite(data.bytes, 1,data.length,encoder->fp);
+                
+            }
+
             bufferOffset += NALUnitLength + AVCCHeaderLength;
         }
     }
 }
+
+
+
+
 @end
