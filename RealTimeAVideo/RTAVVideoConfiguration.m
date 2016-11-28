@@ -190,7 +190,7 @@
     configuration.videoMinFrameRate = videoMinFrameRate;
     configuration.videoMaxKeyframeInterval = videoFrameRate * 2;
     configuration.videoSize = videoSize;
-    configuration.landscape = NO;
+    configuration.landscape = landscape;
     return configuration;
 }
 #pragma mark - Method
